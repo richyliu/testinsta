@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Pinpoint (Educator)</title>
+
+		<style>
+			#posts-wrapper {
+				display: none;
+			}
+
+			#token {
+				font-family: monospace;
+			}
+
+			.red {
+				background-color: red;
+			}
+			.yellow {
+				background-color: yellow;
+			}
+			.orange {
+				background-color: orange;
+			}
+			#token-wrapper {
+				margin-bottom: 20px;
+			}
+		</style>
+    </head>
+    <body>
+        <h1>Pinpoint (Educator)</h1>
+		<div id="token-wrapper">
+			<button id="token-btn"> Generat token </button>
+			<span id="token">Token: </span>
+		</div>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Happiness</th>
+				<th>Depression</th>
+				<th>Loneliness</th>
+			</tr>
+			<tr>
+				<td>Jill</td>
+				<td>24%</td>
+				<td>32%</td>
+				<td><span class="orange">78%</span></td>
+			</tr>
+			<tr>
+				<td>John</td>
+				<td>74%</td>
+				<td><span class="yellow">55%</span></td>
+				<td>21%</td>
+			</tr>
+			<tr>
+				<td>Billy</td>
+				<td>19%</td>
+				<td><span class="red">95%</span></td>
+				<td><span class="yellow">58%</span></td>
+			</tr>
+		</table>
+
+	<script>
+		document.getElementById('token-btn').addEventListener('click', () => {
+			console.log('test');
+			document.getElementById('token').innerHTML = 'Token: ' + Math.random().toString(36).substring(7);
+		});
+	</script>
+    </body>
+</html>

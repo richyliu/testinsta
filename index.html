@@ -1,1 +1,76 @@
-<h1>Hello!</h1>
+<html>
+    <head>
+        <title>Pinpoint</title>
+
+		<style>
+			#posts-wrapper {
+				display: none;
+			}
+		</style>
+    </head>
+    <body>
+        <h1>Pinpoint</h1>
+		<p>Log in with Facebook to participate in your school's risk analysis program</p>
+		<input type="text" id="token" placeholder="Token..."/><button id="enter">Enter</button>
+        <fb:login-button
+            scope="public_profile,user_posts,user_likes"
+            onlogin="checkLoginState();"></fb:login-button>
+		<div id="posts-wrapper">
+			<h3>My Posts:</h3>
+			<p id="posts"></p>
+			<p>Thank you for participating</p>
+		</div>
+        <script>
+			document.getElementById('token').addEventListener('keyup', e => {
+				if (e.key == 'Enter') {
+					alert('Logging in to your class with token ' + document.getElementById('token').value);
+				}
+			});
+
+			document.getElementById('enter').addEventListener('click', () => {
+				alert('Logging in to your class with token ' + document.getElementById('token').value);
+			});
+
+            function checkLoginState() {
+              FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+              });
+            }
+			
+			function statusChangeCallback(res) {
+				if (res.status == 'connected') {
+					FB.api('/me/posts', res => {
+						document.getElementById('posts-wrapper').setAttribute('style', 'display: block');
+						let msgs = res.data.map(d => d.message).filter(Boolean);
+						console.log(msgs);
+						document.getElementById('posts').innerHTML = msgs.join('<br>');
+					});
+				}
+			}
+            
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '233145780780833',
+                  cookie     : true,
+                  xfbml      : true,
+                  version    : 'v3.0'
+                });
+            
+                FB.AppEvents.logPageView();
+            	
+            	FB.getLoginStatus(function(response) {
+                  statusChangeCallback(response);
+                });
+            
+              };
+            
+              (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "https://connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+               }(document, 'script', 'facebook-jssdk'));
+        </script>
+    </body>
+</html>
